@@ -1,0 +1,16 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ [[org.glassfish.jaxb/jaxb-runtime "2.3.2"]]
+
+ :builds
+ {:frontend
+  {:target :browser #_:node-script
+   :output-dir "resources/compiled"
+   :main cljs-jxa-starter.core/main
+   :modules {:core {:init-fn cljs-jxa-starter.core/main}}
+   :output-to "resources/compiled/core.js"
+   :compiler-options {:infer-externs :auto}
+   :entries [cljs-jxa-starter.core]}}}

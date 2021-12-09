@@ -29,12 +29,12 @@
         :types ["void" ["id"]]
         :implementation display-msg}}}))
 
-(def app-delegate $.AppDelegate.alloc.init)
+(def app-delegate js/$.AppDelegate.alloc.init)
 
 (defn set-props! [obj & props]
   (doseq [[k v] (partition 2 props)] (aset obj k v)))
 
-(defn add-views! [obj & views]
+(defn add-views! [^js obj & views]
   (doseq [v views] (.addSubview (.-contentView obj) v)))
 
 (defn create-window [rect]
@@ -69,15 +69,16 @@
       "editable" editable)
     txt))
 
-(let [[width height] [250 180]
-      btn-width (- width 50)
-      win (create-window (js/$.NSMakeRect 0 0 width height))
-      speak-btn (create-btn (js/$.NSMakeRect 25 20 btn-width 25) "Speak" "speakHandler:")
-      disp-btn (create-btn (js/$.NSMakeRect 25 50 btn-width 25) "Display" "displayHandler:")
-      lbl (create-txt (js/$.NSMakeRect 25 (- height 50) btn-width 25) "Your Name" false)
-      txt (create-txt (js/$.NSMakeRect 25 (- height 75) btn-width 25) "" true)]
-  (swap! app-state assoc :name-input txt)
-  (add-views! win speak-btn disp-btn lbl txt)
-  (.-center win)
-  (set! (.-title win) "Welcome")
-  (.makeKeyAndOrderFront win win))
+(defn main [] (let [[width height] [250 180]
+                    btn-width (- width 50)
+                    win (create-window (js/$.NSMakeRect 0 0 width height))
+                    speak-btn (create-btn (js/$.NSMakeRect 25 20 btn-width 25) "Speak" "speakHandler:")
+                    disp-btn (create-btn (js/$.NSMakeRect 25 50 btn-width 25) "Display" "displayHandler:")
+                    lbl (create-txt (js/$.NSMakeRect 25 (- height 50) btn-width 25) "Your Name" false)
+                    txt (create-txt (js/$.NSMakeRect 25 (- height 75) btn-width 25) "" true)]
+                (.activate app)
+                (swap! app-state assoc :name-input txt)
+                (add-views! win speak-btn disp-btn lbl txt)
+                (.-center win)
+                (set! (.-title win) "Welcome")
+                (.makeKeyAndOrderFront win win)))
