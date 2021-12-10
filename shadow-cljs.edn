@@ -7,10 +7,14 @@
 
  :builds
  {:frontend
-  {:target :browser #_:node-script
+  {:target :browser
    :output-dir "resources/compiled"
-   :main cljs-jxa-starter.core/main
    :modules {:core {:init-fn cljs-jxa-starter.core/main}}
    :output-to "resources/compiled/core.js"
-   :compiler-options {:infer-externs :auto}
-   :entries [cljs-jxa-starter.core]}}}
+   :compiler-options {:infer-externs :auto}}
+  :focus
+  {:target :browser
+   :output-dir "resources/compiled"
+   :modules {:core {:init-fn cljs-jxa-starter.focus-resize-window/main}}
+   :output-to "resources/compiled/core.js"
+   :compiler-options {:infer-externs :auto}}}}
